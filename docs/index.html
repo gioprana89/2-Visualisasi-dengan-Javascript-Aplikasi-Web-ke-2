@@ -1,0 +1,550 @@
+<html>
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
+    <script src="https://cdn.maptiler.com/mapbox-gl-js/v1.5.1/mapbox-gl.js"></script>
+    <script src="https://cdn.maptiler.com/mapbox-gl-leaflet/latest/leaflet-mapbox-gl.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css" />
+    <link rel="stylesheet" href="https://cdn.maptiler.com/mapbox-gl-js/v1.5.1/mapbox-gl.css" />
+  
+  
+
+
+
+
+<style>
+
+    a:link {
+      text-decoration: none;
+    }
+    
+    a:visited {
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    a:active {
+      text-decoration: underline;
+    }
+    
+    
+    
+    
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <p style="text-align:justify">
+    
+            <font style="color:blue; text-align: justify; font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;">
+                    <font size = 4>
+        
+                        Webiste ini menampilkan peta wilayah kecamatan-kecamatan di kota Medan. Peta ini dibuat menggunakan bahasa Javascript, dengan pustaka<a href = "https://leafletjs.com/", target = "_blank"> Leaflet</a>.
+                        
+                        </font>
+            </font>
+        </p>
+    
+    
+
+            
+
+
+
+
+
+
+
+
+
+<style>  
+   
+   
+   #map_indonesia { height: 100%;
+width: 100%;   
+   
+   }
+   
+   
+   
+.my-label {
+    position: absolute;
+	<!--background: rgba(80,80,0,0.1); -->
+	
+	<!--background-color: rgba(80,80,0,0.1); -->
+    <!--width:1000px; -->
+    <!--font-size:8px; -->
+}
+
+
+
+
+
+
+.text-labels {
+            font-size: 2em;
+            font-weight: 700;
+            color: white;
+            /* Use color, background, set margins for offset, etc */
+        }
+
+
+
+
+
+
+
+
+     .leaflet-popup-close-button {
+            display:none;
+        }
+
+        .leaflet-label-overlay {
+            line-height:0px;
+            margin-top: 9px;
+            position:absolute;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+
+
+
+
+
+
+
+<script src = "../js/shp_kecamatan_medan.js"></script>
+
+
+
+
+
+
+
+
+
+<style>
+
+
+nav{
+    background-color: #87cefa;
+}
+nav ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: relative;
+}
+nav ul li{
+    display: inline-block;
+    background-color: #87cefa;
+}
+nav a{
+    display: block;
+    line-height: 40px;
+    font-size: 14px;
+    padding: 0 10px;
+    color: #000080;
+    text-decoration: none;
+}
+/* Hide Dropdown by Default*/
+nav ul ul {
+    display: none;
+    position: absolute;
+    top: 40px;
+}
+/* hover */
+nav a:hover{
+    background-color: #ff4500;
+}
+/* Display Dropdown on Hover */
+nav ul li:hover > ul {
+    display: inherit;
+}
+/* Fisrt Tier Dropdown */
+nav ul ul li{
+    width: 170px;
+    position: relative;
+    float: none;
+    display: list-item;
+
+}
+/* ============ Second, Third and More Tiers ===========*/
+nav ul ul ul li {
+    position: relative;
+    left: 170px;
+    top: -40px;
+}
+/* Change this in order to change the Dropdown symbol */
+li > a::after { content: ' +';}
+li > a:only-child::after {
+    content: '';
+}
+
+
+
+
+
+
+
+
+
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
+}
+
+</style>
+
+
+
+
+
+
+
+
+
+
+   <style>  
+   
+   
+   #map_indonesia { height: 100%;
+width: 100%;   
+   
+   }
+   
+   
+   
+.my-label {
+    position: absolute;
+	<!--background: rgba(80,80,0,0.1); -->
+	
+	<!--background-color: rgba(80,80,0,0.1); -->
+    <!--width:1000px; -->
+    <!--font-size:8px; -->
+}
+
+
+
+
+
+
+.text-labels {
+            font-size: 2em;
+            font-weight: 700;
+            color: white;
+            /* Use color, background, set margins for offset, etc */
+        }
+
+
+
+
+
+
+
+
+     .leaflet-popup-close-button {
+            display:none;
+        }
+
+        .leaflet-label-overlay {
+            line-height:0px;
+            margin-top: 9px;
+            position:absolute;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<center>
+
+	<table width = "1200px" height = "800px">
+<tr><td>
+
+<div id="map_indonesia" valign = "top"></div>
+
+</td></tr>
+</table>
+
+</center>
+
+
+
+<br>
+<br><br><br><br><br><br><br><br><br>
+
+
+
+
+
+<script>
+
+    
+      var map_indonesia = L.map('map_indonesia').setView([3.58333, 98.66667], 11);
+      var gl_aceh = L.mapboxGL({
+        attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+        accessToken: 'not-needed',
+        style: 'https://api.maptiler.com/maps/streets/style.json?key=1h7e1Z9S76PGy92uF3c5'
+      }).addTo(map_indonesia);
+
+
+      gjson_medan = L.geoJson(medan_shp, {
+
+onEachFeature: onEachFeature,
+style: myStyle
+
+}).addTo(map_indonesia);
+
+
+
+
+
+
+
+
+////////Fungsi untuk warna peta/////////
+
+	
+function getColor(d) {
+    return d == 'Medan Amplas' ? '#E57373' :
+d == 'Medan Area' ? '#BCAAA4' :
+d == 'Medan Barat' ? '#FF5722' :
+d == 'Medan Baru' ? '#FFA726' :
+d == 'Medan Deli' ? '#FFCA28' :
+
+d == 'Medan Denai' ? '#FBC02D' :
+d == 'Medan Helvetia' ? '#7CB342' :
+d == 'Medan Johor' ? '#2E7D32' :
+d == 'Medan Kota' ? '#00BCD4' :
+d == 'Medan Kota Belawan' ? '#039BE5' :
+
+
+d == 'Medan Labuhan' ? '#5C6BC0' :
+d == 'Medan Maimun' ? '#7B1FA2' :
+d == 'Medan Marelan' ? 'red' :
+d == 'Medan Perjuangan' ? 'green' :
+d == 'Medan Petisah' ? 'orange' :
+
+
+d == 'Medan Polonia' ? 'purple' :
+d == 'Medan Selayang' ? 'brown' :
+d == 'Medan Sunggal' ? 'pink' :
+d == 'Medan Tembung' ? 'yellow' :
+d == 'Medan Timur' ? 'blue' :
+
+
+d == 'Medan Tuntungan' ? 'white' :
+
+
+
+
+
+		
+        		   'red';
+}
+
+
+
+
+
+
+
+
+
+function myStyle(feature) {
+    return {
+        fillColor: getColor(feature.properties.NAME_3),
+        weight: 0.8,
+        opacity: 0.8,
+        color: 'white',
+        dashArray: '0',
+        fillOpacity: 1
+    };
+}
+
+
+
+
+
+
+
+
+
+//////////
+
+
+
+
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+          'click': function (e) {
+              select(e.target);
+            }
+    });
+}
+
+
+
+
+
+
+
+function highlightFeature(e) {
+    var layer = e.target;
+	
+	
+
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+	
+	
+	
+//layer.bindTooltip("Provinsi Aceh", {permanent: true, className: "my-label", offset: [0, 0] });
+
+
+//console.log(layer.feature.properties);
+	
+//layer.bindTooltip(layer.feature.properties.NAME_1);
+
+	 //layer.bindPopup(layer.feature.properties.NAME_1);
+	
+	layer.bindTooltip("Kecamatan: " + layer.feature.properties.NAME_3).openTooltip();
+	
+	//info.update(layer.feature.properties);
+	
+	
+}
+
+
+
+
+
+
+function resetHighlight(e) {
+    gjson_medan.resetStyle(e.target);
+	
+	//info.update();
+}
+
+
+
+
+
+
+
+	  
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
